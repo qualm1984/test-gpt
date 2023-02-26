@@ -71,7 +71,7 @@ def main():
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
         conversation += 'VMware Support: ' + response + '\n'
-    st.text_area('Conversation', value=conversation, height=400, key='conversation-output')
+    st.markdown('Conversation', value=conversation, height=400, key='conversation-output')
 
 
 if __name__ == '__main__':
