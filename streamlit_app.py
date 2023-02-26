@@ -11,7 +11,7 @@ def open_file(filepath):
         return infile.read()
 
 
-def gpt3_completion(prompt, engine='text-davinci-002', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0, stop=['VMware Support:', 'USER:']):
+def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0, stop=['VMware Support:', 'USER:']):
     api_key = get_api_key()
     if api_key is None:
         st.error('Please set the OPENAI_API_KEY environment variable')
@@ -33,7 +33,7 @@ def gpt3_completion(prompt, engine='text-davinci-002', temp=0.7, top_p=1.0, toke
 
 
 def main():
-    st.title('OpenAI Chatbot')
+    st.title('VMware Support Assistant')
     conversation = st.text_area('Conversation', height=400)
     user_input = st.text_input('User Input')
     if st.button('Send'):
