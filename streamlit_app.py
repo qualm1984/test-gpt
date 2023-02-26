@@ -52,20 +52,20 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
 
 
 def main():
-st.title('VMware Support Assistant')
+    st.title('VMware Support Assistant')
 
-st.markdown('### Conversation')
-conversation = st.text_area(value='', height=400, key='conversation-input', disabled=True)
+    st.markdown('### Conversation')
+    conversation = st.text_area(value='', height=400, key='conversation-input', disabled=True)
 
-user_input = st.text_input('User Input')
-if st.button('Send'):
-    conversation += 'USER: ' + user_input + '\n'
-    prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-    prompt += 'VMware Support:'
-    response = gpt3_completion(prompt)
-    conversation += 'VMware Support: ' + response + '\n'
-    
-st.text_area(value=conversation, height=400, key='conversation')
+    user_input = st.text_input('User Input')
+    if st.button('Send'):
+        conversation += 'USER: ' + user_input + '\n'
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+        prompt += 'VMware Support:'
+        response = gpt3_completion(prompt)
+        conversation += 'VMware Support: ' + response + '\n'
+        
+    st.text_area(value=conversation, height=400, key='conversation')
 
 
 if __name__ == '__main__':
