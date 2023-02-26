@@ -61,30 +61,17 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
 #            st.error('There was an error with the OpenAI API. Please check your API key and try again.')
 #    st.write(conversation)
 
-#def main():
-    #st.title('VMware Support Assistant')
-    #conversation = st.text_area('Conversation', height=400, key='conversation-input')
-    #user_input = st.text_input('User Input')
-    #if st.button('Send'):
-        #conversation += 'USER: ' + user_input + '\n'
-        #prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-        #prompt += 'VMware Support:'
-        #response = gpt3_completion(prompt)
-        #conversation += 'VMware Support: ' + response + '\n'
-    #st.text_area('Conversation', value=conversation, height=400, key='conversation-output')
-
-
 def main():
     st.title('VMware Support Assistant')
-    conversation = st.text_area('User Input', height=100)
-    if st.button('Send'):
-        conversation += '\nUSER: ' + user_input + '\n'
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-        prompt += 'VMware Support:'
-        response = gpt3_completion(prompt)
-        conversation += 'VMware Support: ' + response + '\n'
-
-    st.markdown(conversation)
+    conversation = st.empty()
+    conversation.markdown('Conversation:\n')
+        if st.button('Send'):
+            user_input = st.text_input('User Input')
+            conversation.write('USER: %s' % user_input)
+            prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+            prompt = prompt + '\nVMware Support:'
+            response = gpt3_completion(prompt)
+            conversation.write('VMware Support: %s' % response)
 
 
 if __name__ == '__main__':
