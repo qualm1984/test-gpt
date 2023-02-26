@@ -39,14 +39,15 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
 
 def main():
     st.title('VMware Support Assistant')
-    st.text('Conversation')
     conversation = st.empty()
     user_input = st.text_input('User Input')
     if st.button('Send'):
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.markdown('USER: ' + user_input + '\n', unsafe_allow_html=True))
+        conversation.markdown('USER: ' + user_input, unsafe_allow_html=True)
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.markdown('', unsafe_allow_html=True))
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
-        conversation.markdown('VMware Support: ' + response + '\n', unsafe_allow_html=True)
+        conversation.markdown('VMware Support: ' + response, unsafe_allow_html=True)
+
 
 
 if __name__ == '__main__':
