@@ -46,7 +46,7 @@ def main():
         prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.get_text_input() + '\n')
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
-        conversation.markdown('VMware Support: ' + response + '\n')
+        onversation.markdown('VMware Support: ' + response + '\n')
 
 
 
