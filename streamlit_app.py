@@ -65,13 +65,13 @@ def main():
     st.title('VMware Support Assistant')
     conversation = st.empty()
     conversation.markdown('Conversation:\n')
-        if st.button('Send'):
-            user_input = st.text_input('User Input')
-            conversation.write('USER: %s' % user_input)
-            prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-            prompt = prompt + '\nVMware Support:'
-            response = gpt3_completion(prompt)
-            conversation.write('VMware Support: %s' % response)
+    if st.button('Send'):
+        user_input = st.text_input('User Input')
+        conversation.write('USER: %s' % user_input)
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+        prompt = prompt + '\nVMware Support:'
+        response = gpt3_completion(prompt)
+        conversation.write('VMware Support: %s' % response)
 
 
 if __name__ == '__main__':
