@@ -17,7 +17,6 @@ def open_file(filepath):
         return infile.read()
 
 
-
 def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0):
     api_key = get_api_key()
     if api_key is None:
@@ -38,31 +37,16 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
     return text
 
 
-#def main():
-    #st.title('VMware Support Assistant')
-    #conversation = st.text_area('Conversation', height=400, key='conversation-input')
-    #user_input = st.text_input('User Input')
-    #if st.button('Send'):
-        #conversation += 'USER: ' + user_input + '\n'
-        #prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-        #prompt += 'VMware Support:'
-        #response = gpt3_completion(prompt)
-        #conversation += 'VMware Support: ' + response + '\n'
-    #st.text_area('Conversation', value=conversation, height=400, key='conversation')
-
-
 def main():
     st.title('VMware Support Assistant')
-    conversation = st.text_area('Conversation', height=400, key='conversation-input')
+    st.text('Conversation')
+    conversation = st.empty()
     user_input = st.text_input('User Input')
     if st.button('Send'):
-        conversation += 'USER: ' + user_input + '\n'
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.markdown('USER: ' + user_input + '\n', unsafe_allow_html=True))
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
-        conversation += 'VMware Support: ' + response + '\n'
-    st.text_area('', value=conversation, height=400, key='conversation')
-
+        conversation.markdown('VMware Support: ' + response + '\n', unsafe_allow_html=True)
 
 
 if __name__ == '__main__':
