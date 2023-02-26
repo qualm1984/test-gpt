@@ -20,7 +20,8 @@ def gpt3_completion(prompt, engine='text-davinci-002', temp=0.7, top_p=1.0, toke
         top_p=top_p,
         frequency_penalty=freq_pen,
         presence_penalty=pres_pen,
-        stop=stop)
+        stop=stop,
+        api_key=st.secrets["openai"]["api_key"])
     text = response['choices'][0]['text'].strip()
     return text
 
