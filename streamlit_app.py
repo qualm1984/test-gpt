@@ -46,6 +46,21 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
     return text
 
 
+#def main():
+#    st.title('VMware Support Assistant')
+#    conversation = st.text_area('Conversation', height=400)
+#    user_input = st.text_input('User Input')
+#    if st.button('Send'):
+#        conversation += 'USER: ' + user_input + '\n'
+#        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+#        prompt += 'VMware Support:'
+#        response = gpt3_completion(prompt)
+#        if response is not None:
+#            conversation += 'VMware Support: ' + response + '\n'
+#        else:
+#            st.error('There was an error with the OpenAI API. Please check your API key and try again.')
+#    st.write(conversation)
+
 def main():
     st.title('VMware Support Assistant')
     conversation = st.text_area('Conversation', height=400)
@@ -55,11 +70,8 @@ def main():
         prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
-        if response is not None:
-            conversation += 'VMware Support: ' + response + '\n'
-        else:
-            st.error('There was an error with the OpenAI API. Please check your API key and try again.')
-    st.write(conversation)
+        conversation += 'VMware Support: ' + response + '\n'
+    st.text_area('Conversation', value=conversation, height=400, key='conversation')
 
 
 if __name__ == '__main__':
