@@ -2,27 +2,22 @@ import os
 import streamlit as st
 import openai
 
-
 def get_api_key():
     api_key = st.secrets["openai"]["api_key"]
     if api_key is None:
         st.error('Please set the OPENAI_API_KEY environment variable')
         return
-
     return api_key
-
 
 def open_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as infile:
         return infile.read()
-
 
 def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0):
     api_key = get_api_key()
     if api_key is None:
         st.error('Please set the OPENAI_API_KEY environment variable')
         return
-
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()
     response = openai.Completion.create(
         engine=engine,
@@ -36,20 +31,18 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
     text = response['choices'][0]['text'].strip()
     return text
 
-
 def main():
     st.title('VMware Support Assistant')
-    conversation = st.empty()
-    user_input = st.text_input('User Input')
-    if st.button('Send'):
-        conversation.markdown('USER: ' + user_input)
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.get_text_input() + '\n')
-        prompt += 'VMware Support:'
+    conversation = list()
+    while True:
+        user_input = st.text_input('USER:')
+        conversation.append('USER: %s' % user_input)
+        text_block = '\n'.join(conversation)
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', text_block)
+        prompt = prompt + '\nVMware Support:'
         response = gpt3_completion(prompt)
-        onversation.markdown('VMware Support: ' + response + '\n')
-
-
-
+        st.write('VMware Support:', response)
+        conversation.append('VMware Support: %s' % response)
 
 if __name__ == '__main__':
     main()
