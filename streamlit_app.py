@@ -63,7 +63,7 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
 
 def main():
     st.title('VMware Support Assistant')
-    conversation = st.text_area('Conversation', height=400, key='conversation-input')
+    conversation = st.markdown('Conversation', height=400, key='conversation-input')
     user_input = st.text_input('User Input')
     if st.button('Send'):
         conversation += 'USER: ' + user_input + '\n'
