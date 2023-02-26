@@ -35,9 +35,7 @@ def main():
     st.title('VMware Support Assistant')
     conversation = list()
     while True:
-        user_input = st.text_input('USER: ')
-        if not user_input:
-            continue
+        user_input = st.text_input('USER:')
         conversation.append('USER: %s' % user_input)
         text_block = '\n'.join(conversation)
         prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', text_block)
