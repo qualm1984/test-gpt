@@ -43,7 +43,7 @@ def main():
     user_input = st.text_input('User Input')
     if st.button('Send'):
         conversation.markdown('USER: ' + user_input, unsafe_allow_html=True)
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.markdown('', unsafe_allow_html=True))
+        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation.markdown('', unsafe_allow_html=True).to_html())
         prompt += 'VMware Support:'
         response = gpt3_completion(prompt)
         conversation.markdown('VMware Support: ' + response, unsafe_allow_html=True)
