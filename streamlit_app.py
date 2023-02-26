@@ -3,14 +3,6 @@ import streamlit as st
 import openai
 
 
-#def get_api_key():
- #   return os.environ.get('OPENAI_API_KEY')
-
-#def get_api_key():
- #  api_key = os.environ.get('OPENAI_API_KEY')
- #  print('API key:', api_key)
-  # return api_key
-
 def get_api_key():
     api_key = st.secrets["openai"]["api_key"]
     if api_key is None:
@@ -47,31 +39,33 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
 
 
 #def main():
-#    st.title('VMware Support Assistant')
-#    conversation = st.text_area('Conversation', height=400)
-#    user_input = st.text_input('User Input')
-#    if st.button('Send'):
-#        conversation += 'USER: ' + user_input + '\n'
-#        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-#        prompt += 'VMware Support:'
-#        response = gpt3_completion(prompt)
-#        if response is not None:
-#            conversation += 'VMware Support: ' + response + '\n'
-#        else:
-#            st.error('There was an error with the OpenAI API. Please check your API key and try again.')
-#    st.write(conversation)
+    #st.title('VMware Support Assistant')
+    #conversation = st.text_area('Conversation', height=400, key='conversation-input')
+    #user_input = st.text_input('User Input')
+    #if st.button('Send'):
+        #conversation += 'USER: ' + user_input + '\n'
+        #prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+        #prompt += 'VMware Support:'
+        #response = gpt3_completion(prompt)
+        #conversation += 'VMware Support: ' + response + '\n'
+    #st.text_area('Conversation', value=conversation, height=400, key='conversation')
+
 
 def main():
-    st.title('VMware Support Assistant')
-    conversation = st.text_area('Conversation', height=400, key='conversation-input')
-    user_input = st.text_input('User Input')
-    if st.button('Send'):
-        conversation += 'USER: ' + user_input + '\n'
-        prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
-        prompt += 'VMware Support:'
-        response = gpt3_completion(prompt)
-        conversation += 'VMware Support: ' + response + '\n'
-    st.text_area('Conversation', value=conversation, height=400, key='conversation')
+st.title('VMware Support Assistant')
+
+st.markdown('### Conversation')
+conversation = st.text_area(value='', height=400, key='conversation-input', disabled=True)
+
+user_input = st.text_input('User Input')
+if st.button('Send'):
+    conversation += 'USER: ' + user_input + '\n'
+    prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', conversation)
+    prompt += 'VMware Support:'
+    response = gpt3_completion(prompt)
+    conversation += 'VMware Support: ' + response + '\n'
+    
+st.text_area(value=conversation, height=400, key='conversation')
 
 
 if __name__ == '__main__':
