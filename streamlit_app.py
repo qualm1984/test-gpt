@@ -31,20 +31,17 @@ def gpt3_completion(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, toke
     text = response['choices'][0]['text'].strip()
     return text
 
-@st.cache(hash_funcs={tuple: lambda _: None})
-def gpt3_completion_cached(prompt, engine='text-davinci-003', temp=0.7, top_p=1.0, tokens=400, freq_pen=0.0, pres_pen=0.0):
-    return gpt3_completion(prompt, engine, temp, top_p, tokens, freq_pen, pres_pen)
-
 def main():
     st.title('VMware Support Assistant')
     conversation = list()
     while True:
         user_input = st.text_input('USER:', key='input_key')
         conversation.append('USER: %s' % user_input)
+        print(conversation)
         text_block = '\n'.join(conversation)
         prompt = open_file('prompt_chat.txt').replace('<<BLOCK>>', text_block)
         prompt = prompt + '\nVMware Support:'
-        response = gpt3_completion_cached(prompt)
+        response = gpt3_completion(prompt)
         st.write('VMware Support:', response)
         conversation.append('VMware Support: %s' % response)
 
